@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "AssetValidator.Ui/1.0.0": {
+        "dependencies": {
+          "AssetValidator.Core": "1.0.0"
+        },
+        "runtime": {
+          "AssetValidator.Ui.dll": {}
+        }
+      },
+      "AssetValidator.Core/1.0.0": {
+        "runtime": {
+          "AssetValidator.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AssetValidator.Ui/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AssetValidator.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
