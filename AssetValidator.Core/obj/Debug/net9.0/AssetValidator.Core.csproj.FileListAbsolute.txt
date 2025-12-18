@@ -1,0 +1,11 @@
+C:\Users\Gaming 'n Shit\Tools\AssetValidator.Core\AssetValidator.Core\AssetValidator.Core\bin\Debug\net9.0\AssetValidator.Core.deps.json
+C:\Users\Gaming 'n Shit\Tools\AssetValidator.Core\AssetValidator.Core\AssetValidator.Core\bin\Debug\net9.0\AssetValidator.Core.dll
+C:\Users\Gaming 'n Shit\Tools\AssetValidator.Core\AssetValidator.Core\AssetValidator.Core\bin\Debug\net9.0\AssetValidator.Core.pdb
+C:\Users\Gaming 'n Shit\Tools\AssetValidator.Core\AssetValidator.Core\AssetValidator.Core\obj\Debug\net9.0\AssetValidator.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Gaming 'n Shit\Tools\AssetValidator.Core\AssetValidator.Core\AssetValidator.Core\obj\Debug\net9.0\AssetValidator.Core.AssemblyInfoInputs.cache
+C:\Users\Gaming 'n Shit\Tools\AssetValidator.Core\AssetValidator.Core\AssetValidator.Core\obj\Debug\net9.0\AssetValidator.Core.AssemblyInfo.cs
+C:\Users\Gaming 'n Shit\Tools\AssetValidator.Core\AssetValidator.Core\AssetValidator.Core\obj\Debug\net9.0\AssetValidator.Core.csproj.CoreCompileInputs.cache
+C:\Users\Gaming 'n Shit\Tools\AssetValidator.Core\AssetValidator.Core\AssetValidator.Core\obj\Debug\net9.0\AssetValidator.Core.dll
+C:\Users\Gaming 'n Shit\Tools\AssetValidator.Core\AssetValidator.Core\AssetValidator.Core\obj\Debug\net9.0\refint\AssetValidator.Core.dll
+C:\Users\Gaming 'n Shit\Tools\AssetValidator.Core\AssetValidator.Core\AssetValidator.Core\obj\Debug\net9.0\AssetValidator.Core.pdb
+C:\Users\Gaming 'n Shit\Tools\AssetValidator.Core\AssetValidator.Core\AssetValidator.Core\obj\Debug\net9.0\ref\AssetValidator.Core.dll

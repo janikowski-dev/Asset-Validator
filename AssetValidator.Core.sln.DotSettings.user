@@ -1,0 +1,4 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6fac499c_002D3ba0_002D4d43_002D914d_002D817211d35478/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Invalid_image_resolution_produces_errors" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="C:\Users\Gaming 'n Shit\Tools\AssetValidator.Core\AssetValidator.Core\AssetValidator.Core.Tests" Presentation="&amp;lt;AssetValidator.Core.Tests&amp;gt;" /&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
