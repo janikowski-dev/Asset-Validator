@@ -1,4 +1,4 @@
-# AssetValidator
+# Asset Validator
 
 AssetValidator is a cross-engine asset validation tool designed for game development pipelines.
 
