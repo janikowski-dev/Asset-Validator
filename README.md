@@ -7,11 +7,9 @@ Validation can be run via CLI (CI-friendly) or UI (human inspection).
 
 ## Overview
 
-```
 Unreal Editor → JSON → AssetValidator (Core) → Results  
                      → CLI (automation / CI)  
                      → UI (visual inspection)
-```
 
 The validation engine is engine-agnostic and operates purely on serialized asset data.
 
