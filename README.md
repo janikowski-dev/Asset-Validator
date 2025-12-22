@@ -37,7 +37,7 @@ Validate assets:
 
 Output validation results as JSON:
 
-    AssetValidator.Cli --input examples/assets.invalid.json --print-out-as-json
+    AssetValidator.Cli --input examples/assets_valid.json --json-results
 
 ### Exit Codes
 
