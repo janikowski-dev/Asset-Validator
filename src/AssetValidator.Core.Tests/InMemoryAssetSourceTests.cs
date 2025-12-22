@@ -16,7 +16,7 @@ public class InMemoryAssetSourceTests
             new() { Name = "B" }
         ];
         
-        InMemoryAssetSource source = new InMemoryAssetSource(assets);
+        InMemoryAssetSource source = new(assets);
 
         // Act
         List<Asset> result = source.LoadAssets().ToList();

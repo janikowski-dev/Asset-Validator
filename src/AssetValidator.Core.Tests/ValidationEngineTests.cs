@@ -18,7 +18,7 @@ public class ValidationEngineTests
             new NoSpacesInPathRule()
         ];
 
-        ValidationEngine engine = new ValidationEngine(rules);
+        ValidationEngine engine = new(rules);
 
         Asset[] assets =
         [

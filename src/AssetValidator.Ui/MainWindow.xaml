@@ -4,11 +4,11 @@
         Title="Asset Validator" Height="450" Width="800">
 
     <DockPanel Margin="10">
-        <Button DockPanel.Dock="Top"
-                Height="30"
-                Margin="0,0,0,10"
-                Content="Validate Demo Assets"
-                Click="RefreshResults"/>
+        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+            <Button Height="30"
+                    Content="Validate Assets From Json"
+                    Click="ValidateJsonAssets"/>
+        </StackPanel>
 
         <DataGrid x:Name="ResultsGrid"
                   AutoGenerateColumns="False"

@@ -25,7 +25,7 @@ public sealed class ResolutionRule : IValidationRule
             yield break;
         }
 
-        if (!TryGetSize(asset, out var width, out var height))
+        if (!TryGetSize(asset, out int width, out int height))
         {
             yield break;
         }
@@ -74,7 +74,7 @@ public sealed class ResolutionRule : IValidationRule
         return true;
     }
 
-    private bool IsHeightValid(int height)
+    private static bool IsHeightValid(int height)
     {
         if (height > MaxHeight)
         {
@@ -84,7 +84,7 @@ public sealed class ResolutionRule : IValidationRule
         return height >= MinHeight;
     }
 
-    private bool IsWidthValid(int width)
+    private static bool IsWidthValid(int width)
     {
         if (width > MaxWidth)
         {

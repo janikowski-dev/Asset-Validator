@@ -40,7 +40,9 @@ public sealed class ValidationResult
     private static void Validate(IValidationRule rule, Asset asset, string message)
     {
         if (string.IsNullOrWhiteSpace(message))
+        {
             throw new ArgumentException("Message cannot be empty.", nameof(message));
+        }
         
         ArgumentNullException.ThrowIfNull(asset);
         ArgumentNullException.ThrowIfNull(rule);

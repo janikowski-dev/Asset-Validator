@@ -5,21 +5,50 @@ using AssetValidator.Core.Engine;
 using AssetValidator.Core.Rules;
 using AssetValidator.Core.Sources;
 
-IReadOnlyList<ValidationResult> results = ValidateDemoAssets(out bool hasErrors);
+const string outputAsJsonParameterName = "--json-results";
+const string inputPathParameterName = "--input";
 
-if (ShouldUseJson(args))
+try
 {
-    Console.Write(ToJson(results));
-}
-else
-{
-    foreach (ValidationResult result in results)
+    if (!TryReadAssetsFromJson(args, out IEnumerable<Asset> assets))
     {
-        Print(result);
+        Console.WriteLine($"Usage: AssetValidator.Cli {inputPathParameterName} <assets.json> [{outputAsJsonParameterName}]");
+        Environment.Exit(1);
     }
+
+    IReadOnlyList<ValidationResult> results = Validate(assets, out bool hasErrors);
+    Console.WriteLine("Validation finished.");
+
+    if (ShouldOutputAsJson(args))
+    {
+        Console.Write(ToJson(results));
+    }
+    else
+    {
+        foreach (ValidationResult result in results)
+        {
+            Print(result);
+        }
+    }
+    
+    Environment.Exit(hasErrors ? 1 : 0);
+}
+catch (JsonException caughtException)
+{
+    Console.WriteLine(ToMessage("Failed to parse the file.", caughtException.Message));
+    Environment.Exit(2);
+}
+catch (IOException caughtException)
+{
+    Console.WriteLine(ToMessage("Failed to read the file.", caughtException.Message));
+    Environment.Exit(2);
+}
+catch (Exception caughtException)
+{
+    Console.WriteLine(ToMessage("Unexpected error occurred.", caughtException.Message));
+    Environment.Exit(2);
 }
 
-Environment.Exit(hasErrors ? 1 : 0);
 return;
 
 static void Print(ValidationResult result)
@@ -39,7 +68,7 @@ static ConsoleColor GetColor(ValidationResult result) => result.Severity switch
 
 static string Format(ValidationResult result) => $"[{result.Severity}] {result.RuleId} {result.Asset.Path} - {result.Message}";
 
-static bool ShouldUseJson(string[] args) => args.Contains("--json");
+static bool ShouldOutputAsJson(string[] args) => args.Contains(outputAsJsonParameterName);
 
 static string ToJson(IReadOnlyList<ValidationResult> results)
 {
@@ -51,30 +80,32 @@ static string ToJson(IReadOnlyList<ValidationResult> results)
     return JsonSerializer.Serialize(results, options);
 }
 
-static IReadOnlyList<ValidationResult> ValidateDemoAssets(out bool hasErrors)
+static bool TryReadAssetsFromJson(string[] args, out IEnumerable<Asset> assets)
 {
-    IAssetSource source = new InMemoryAssetSource([
-        new Asset
-        {
-            Type = AssetType.Image,
-            Name = "Bad Image",
-            Path = "Bad Image.png",
-            SizeInBytes = 2 * 1024 * 1024,
-            Metadata = new Dictionary<string, object>
-            {
-                ["Image.Width"] = 4096,
-                ["Image.Height"] = 4096
-            }
-        }
-    ]);
+    int index = Array.IndexOf(args, inputPathParameterName);
+    assets = [];
+    
+    if (index < 0 || index == args.Length - 1)
+    {
+        return false;
+    }
 
+    IAssetSource source = new JsonFileAssetSource(args[index + 1]);
+    assets = source.LoadAssets();
+    return true;
+}
+
+static IReadOnlyList<ValidationResult> Validate(IEnumerable<Asset> assets, out bool hasErrors)
+{
     IValidationRule[] rules =
     [
         new ResolutionRule(),
         new NoSpacesInPathRule()
     ];
 
-    IReadOnlyList<ValidationResult> results = new ValidationEngine(rules).Validate(source.LoadAssets());
+    IReadOnlyList<ValidationResult> results = new ValidationEngine(rules).Validate(assets);
     hasErrors = results.Any(r => r.Severity == ValidationSeverity.Error);
     return results;
 }
+
+static string ToMessage(params string[] messages) => string.Join("\n\n", messages);

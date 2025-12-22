@@ -33,7 +33,7 @@ public sealed class ValidationEngine(IEnumerable<IValidationRule> rules)
 
     private IReadOnlyList<ValidationResult> ValidateInternal(IEnumerable<Asset> assets)
     {
-        List<ValidationResult> results = new List<ValidationResult>();
+        List<ValidationResult> results = [];
 
         foreach (Asset asset in assets)
         {

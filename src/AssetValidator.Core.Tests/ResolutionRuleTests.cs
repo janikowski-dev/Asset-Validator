@@ -10,9 +10,9 @@ public class ResolutionRuleTests
     public void Invalid_Image_Resolution_Produces_Errors()
     {
         // Arrange
-        ResolutionRule rule = new ResolutionRule();
+        ResolutionRule rule = new();
         
-        Asset asset = new Asset
+        Asset asset = new()
         {
             Type = AssetType.Image,
             Name = "Bad Image",
