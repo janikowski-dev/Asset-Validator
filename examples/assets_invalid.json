@@ -1,0 +1,52 @@
+[
+  {
+    "Type": "Image",
+    "Name": "Huge Image",
+    "Path": "Textures/UI/Huge Image.png",
+    "SizeInBytes": 4194304,
+    "Metadata": {
+      "Image.Width": 4096,
+      "Image.Height": 4096
+    }
+  },
+  {
+    "Type": "Image",
+    "Name": "Tiny Image",
+    "Path": "Textures/UI/TinyImage.png",
+    "SizeInBytes": 65536,
+    "Metadata": {
+      "Image.Width": 64,
+      "Image.Height": 64
+    }
+  },
+  {
+    "Type": "Image",
+    "Name": "Spaced Image",
+    "Path": "Textures/UI/Spaced Image.png",
+    "SizeInBytes": 262144,
+    "Metadata": {
+      "Image.Width": 512,
+      "Image.Height": 512
+    }
+  },
+  {
+    "Type": "Mesh",
+    "Name": "Bad Mesh One",
+    "Path": "Meshes/Props/Bad Mesh One.fbx",
+    "SizeInBytes": 2097152,
+    "Metadata": {
+      "Mesh.VertexCount": 9000,
+      "Mesh.TriangleCount": 6000
+    }
+  },
+  {
+    "Type": "Mesh",
+    "Name": "Bad Mesh Two",
+    "Path": "Meshes/Bad Mesh Two.fbx",
+    "SizeInBytes": 3145728,
+    "Metadata": {
+      "Mesh.VertexCount": 12000,
+      "Mesh.TriangleCount": 8000
+    }
+  }
+]

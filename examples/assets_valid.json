@@ -1,0 +1,52 @@
+[
+  {
+    "Type": "Image",
+    "Name": "IconPlay",
+    "Path": "Textures/UI/IconPlay.png",
+    "SizeInBytes": 262144,
+    "Metadata": {
+      "Image.Width": 256,
+      "Image.Height": 256
+    }
+  },
+  {
+    "Type": "Image",
+    "Name": "IconPause",
+    "Path": "Textures/UI/IconPause.png",
+    "SizeInBytes": 262144,
+    "Metadata": {
+      "Image.Width": 512,
+      "Image.Height": 512
+    }
+  },
+  {
+    "Type": "Image",
+    "Name": "IconStop",
+    "Path": "Textures/UI/IconStop.png",
+    "SizeInBytes": 524288,
+    "Metadata": {
+      "Image.Width": 1024,
+      "Image.Height": 1024
+    }
+  },
+  {
+    "Type": "Mesh",
+    "Name": "Crate",
+    "Path": "Meshes/Props/Crate.fbx",
+    "SizeInBytes": 1048576,
+    "Metadata": {
+      "Mesh.VertexCount": 1234,
+      "Mesh.TriangleCount": 567
+    }
+  },
+  {
+    "Type": "Mesh",
+    "Name": "Barrel",
+    "Path": "Meshes/Props/Barrel.fbx",
+    "SizeInBytes": 1572864,
+    "Metadata": {
+      "Mesh.VertexCount": 2048,
+      "Mesh.TriangleCount": 1024
+    }
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "Type": "Image",
+    "Name": "BrokenAsset",
+    "Path": "Textures/UI/Broken.png",
+    "SizeInBytes": 262144,
+    "Metadata": {
+      "Image.Width": 512,
+      "Image.Height": 512
+    }
+  },
+  {
+    "Type": "Mesh",
+    "Name": "MissingComma"
+    "Path": "Meshes/Props/MissingComma.fbx",
+    "SizeInBytes": 1048576,
+    "Metadata": {
+      "Mesh.VertexCount": 1234,
+      "Mesh.TriangleCount": 567
+    }
+  }
+]
