@@ -1,6 +1,6 @@
 # Asset Validator
 
-AssetValidator is a cross-engine asset validation tool designed for game development pipelines.
+Asset Validator is a cross-engine asset validation tool designed for game development pipelines.
 
 Assets are exported from Unreal Engine to JSON and validated using a shared rule engine.
 Validation can be run via CLI (CI-friendly) or UI (human inspection).
