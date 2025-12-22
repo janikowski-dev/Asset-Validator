@@ -51,9 +51,9 @@ Output validation results as JSON:
 
 See the `examples/` directory for sample asset JSON files.
 
-- assets_valid.json – demonstrates fully passed validation
-- assets_invalid.json – demonstrates validation errors
-- assets_mixed.json – demonstrates mixed validation results
+- `assets_valid.json` – all assets pass validation
+- `assets_invalid.json` – validation completes with errors
+- `assets_malformed.json` – invalid input file (validation does not run)
 
 ## Unreal Engine Integration
 
