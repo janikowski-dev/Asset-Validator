@@ -1,16 +1,16 @@
+
 # Asset Validator
 
-Asset Validator is a cross-engine asset validation tool designed for game development pipelines.
+Asset Validator is an engine-agnostic asset validation framework designed for game development pipelines.
 
-Assets are exported from Unreal Engine to JSON and validated using a shared rule engine.
-Validation can be run via CLI (CI-friendly) or UI (human inspection).
+It validates serialized asset data (JSON) using a shared rule engine that can be run via CLI (CI-friendly) or desktop UI (human inspection).
 
 ## Overview
 
 ```
-Unreal Editor → JSON → AssetValidator (Core) → Results  
-                     → CLI (automation / CI)  
-                     → UI (visual inspection)
+Engine Export → JSON → AssetValidator (Core) → Results
+                      → CLI (automation / CI)
+                      → UI (visual inspection)
 ```
 
 The validation engine is engine-agnostic and operates purely on serialized asset data.
@@ -26,8 +26,8 @@ The validation engine is engine-agnostic and operates purely on serialized asset
 - AssetValidator.Ui  
   Desktop UI for visual inspection of validation results.
 
-- AssetValidatorEditor (UE)  
-  Unreal Engine editor module that exports asset metadata to JSON.
+- AssetValidator.Core.Tests  
+  Unit tests for validation rules and core logic.
 
 ## CLI Usage
 
@@ -55,11 +55,14 @@ See the `examples/` directory for sample asset JSON files.
 - `assets_invalid.json` – validation completes with errors
 - `assets_malformed.json` – invalid input file (validation does not run)
 
-## Unreal Engine Integration
+## Engine integrations
 
-The Unreal Editor module exports asset metadata to JSON for external validation.
-Validation is intentionally performed outside the engine to keep the rules
-engine-agnostic and CI-friendly.
+Engine-specific integrations are implemented as standalone repositories.
+
+👉 Unreal Asset Validator  
+https://github.com/janikowski-dev/Unreal-Asset-Validator
+
+The plugin is responsible for exporting asset metadata to JSON and invoking the external validator.
 
 ## Design Goals
 
@@ -67,3 +70,7 @@ engine-agnostic and CI-friendly.
 - Deterministic and testable rules
 - CI-friendly CLI interface
 - Clear separation between data export and validation
+
+## Notice
+
+This repository contains only the validation framework and tooling. Engine integrations are intentionally kept separate.
