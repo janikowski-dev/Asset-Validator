@@ -81,10 +81,7 @@ The `examples/` directory contains sample metadata exports:
 
 ## Unreal Engine Integration
 
-Unreal integration is handled by a **separate editor tool**:
-
-**Unreal Asset Validator**  
-https://github.com/janikowski-dev/Unreal-Asset-Validator
+Unreal integration is handled by a **separate editor tool**: https://github.com/janikowski-dev/Unreal-Asset-Validator
 
 The Unreal tool is intentionally limited to exporting asset **metadata** to JSON.
 
