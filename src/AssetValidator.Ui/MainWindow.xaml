@@ -64,7 +64,6 @@
                 </Style>
             </DataGrid.ColumnHeaderStyle>
 
-            <!-- Row Styling -->
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Setter Property="MinHeight" Value="26"/>
