@@ -1,43 +1,63 @@
-
 # Asset Validator
 
-Asset Validator is an engine-agnostic asset validation framework designed for game development pipelines.
+**Asset Validator** is a lightweight, engine-agnostic validation tool for game development pipelines.
 
-It validates serialized asset data (JSON) using a shared rule engine that can be run via CLI (CI-friendly) or desktop UI (human inspection).
+It validates **asset metadata exported to JSON**, using a shared rule engine that can run in CI (CLI) or locally via a desktop UI.  
 
-## Overview
+The goal is to catch common content issues **early**, without requiring the game engine to be running.
+
+---
+
+## Why This Exists
+
+In real projects, asset problems are often discovered too late:
+- builds fail unexpectedly
+- performance issues creep in
+- QA finds avoidable content errors
+
+Asset Validator moves these checks earlier in the pipeline by validating exported **metadata**, making validation deterministic, testable, and automation-friendly.
+
+---
+
+## How It Works
 
 ```
-Engine Export → JSON → AssetValidator (Core) → Results
-                      → CLI (automation / CI)
-                      → UI (visual inspection)
+Engine (metadata export) → JSON → AssetValidator
+                             → CLI (CI / automation)
+                             → UI  (local inspection)
 ```
 
-The validation engine is engine-agnostic and operates purely on serialized asset data.
+The validator operates purely on serialized metadata and has no dependency on any specific engine.
 
-## Projects
+---
 
-- AssetValidator.Core  
-  Domain model and validation engine.
+## Repository Structure
 
-- AssetValidator.Cli  
-  Command-line interface for automation and CI usage.
+- **AssetValidator.Core**  
+  Validation rules and core domain logic.
 
-- AssetValidator.Ui  
-  Desktop UI for visual inspection of validation results.
+- **AssetValidator.Cli**  
+  Command-line interface for CI and automation.
 
-- AssetValidator.Core.Tests  
-  Unit tests for validation rules and core logic.
+- **AssetValidator.Ui**  
+  Desktop application for inspecting validation results.
+
+- **AssetValidator.Core.Tests**  
+  Unit tests for rules and core behavior.
+
+---
 
 ## CLI Usage
 
-Validate assets:
+Run validation:
+```
+AssetValidator.Cli --input examples/assets_valid.json
+```
 
-    AssetValidator.Cli --input examples/assets.valid.json
-
-Output validation results as JSON:
-
-    AssetValidator.Cli --input examples/assets_valid.json --json-results
+Output results as JSON (for CI or tooling):
+```
+AssetValidator.Cli --input examples/assets_valid.json --json-results
+```
 
 ### Exit Codes
 
@@ -47,30 +67,42 @@ Output validation results as JSON:
 | 1 | Validation errors found |
 | 2 | Tool failure (IO / parsing error) |
 
+---
+
 ## Examples
 
-See the `examples/` directory for sample asset JSON files.
+The `examples/` directory contains sample metadata exports:
 
-- `assets_valid.json` – all assets pass validation
-- `assets_invalid.json` – validation completes with errors
-- `assets_malformed.json` – invalid input file (validation does not run)
+- `assets_valid.json` – all assets pass validation  
+- `assets_invalid.json` – validation completes with errors  
+- `assets_malformed.json` – invalid input file  
 
-## Engine integrations
+---
 
-Engine-specific integrations are implemented as standalone repositories.
+## Unreal Engine Integration
 
-👉 Unreal Asset Validator  
+Unreal integration is handled by a **separate editor tool**:
+
+**Unreal Asset Validator**  
 https://github.com/janikowski-dev/Unreal-Asset-Validator
 
-The plugin is responsible for exporting asset metadata to JSON and invoking the external validator.
+The Unreal tool is intentionally limited to exporting asset **metadata** to JSON.
+
+All validation logic lives outside the engine.
+
+---
 
 ## Design Goals
 
-- Engine-agnostic validation
-- Deterministic and testable rules
-- CI-friendly CLI interface
-- Clear separation between data export and validation
+- Engine-agnostic validation  
+- Metadata-driven, deterministic rules  
+- CI-friendly CLI interface  
+- Clear separation between export and validation  
 
-## Notice
+---
 
-This repository contains only the validation framework and tooling. Engine integrations are intentionally kept separate.
+## Scope
+
+This repository contains only the validation engine and tooling.
+
+Engine-specific exporters and editor integrations are intentionally kept separate to keep the core portable and reusable.
