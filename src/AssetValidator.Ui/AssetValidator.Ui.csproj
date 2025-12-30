@@ -12,4 +12,9 @@
       <ProjectReference Include="..\AssetValidator.Core\AssetValidator.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Assets\Icon.ico" />
+      <Resource Include="Assets\Icon.ico" />
+    </ItemGroup>
+
 </Project>
