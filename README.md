@@ -2,7 +2,7 @@
 
 **Asset Validator** is a lightweight, engine-agnostic validation tool for game development pipelines.
 
-It validates **asset metadata exported to JSON**, using a shared rule engine that can run in CI (CLI) or locally via a desktop UI.  
+It validates **asset metadata exported to JSON**, using a shared rule engine that can run in CI via a CLI or locally through a desktop UI.
 
 The goal is to catch common content issues **early**, without requiring the game engine to be running.
 
@@ -22,12 +22,31 @@ Asset Validator moves these checks earlier in the pipeline by validating exporte
 ## How It Works
 
 ```
-Engine (metadata export) → JSON → AssetValidator
+Engine (metadata export) → JSON → Asset Validator
                                 → CLI (CI / automation)
                                 → UI  (local inspection)
 ```
 
 The validator operates purely on serialized metadata and has no dependency on any specific engine.
+
+---
+
+## Validation Results (UI)
+
+![Asset Validator – Validation Results](assets/validator-ui.png)
+
+The desktop UI presents validation results in a tabular form, grouped by severity.
+This allows quick inspection of asset issues without digging through logs or raw JSON output.
+
+---
+
+## Releases
+
+Prebuilt binaries for the **CLI** and **desktop UI** are available on the GitHub **Releases** page.
+
+Releases are intended for:
+- local inspection of validation results (UI)
+- CI and automation workflows (CLI)
 
 ---
 
@@ -81,7 +100,8 @@ The `examples/` directory contains sample metadata exports:
 
 ## Unreal Engine Integration
 
-Unreal integration is handled by a **separate editor tool**: https://github.com/janikowski-dev/Unreal-Asset-Validator
+Unreal integration is handled by a **separate editor tool**:  
+https://github.com/janikowski-dev/Unreal-Asset-Validator
 
 The Unreal tool is intentionally limited to exporting asset **metadata** to JSON.
 
