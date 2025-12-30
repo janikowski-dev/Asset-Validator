@@ -23,8 +23,8 @@ Asset Validator moves these checks earlier in the pipeline by validating exporte
 
 ```
 Engine (metadata export) → JSON → AssetValidator
-                             → CLI (CI / automation)
-                             → UI  (local inspection)
+                                → CLI (CI / automation)
+                                → UI  (local inspection)
 ```
 
 The validator operates purely on serialized metadata and has no dependency on any specific engine.
