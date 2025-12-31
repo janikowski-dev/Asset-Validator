@@ -22,9 +22,9 @@ Asset Validator moves these checks earlier in the pipeline by validating exporte
 ## How It Works
 
 ```
-Engine (metadata export) → JSON → Asset Validator
-                                → CLI (CI / automation)
-                                → UI  (local inspection)
+Engine / DCC (metadata export) → JSON → Asset Validator
+                                      → CLI (CI / automation)
+                                      → UI  (local inspection)
 ```
 
 The validator operates purely on serialized metadata and has no dependency on any specific engine.
@@ -98,14 +98,19 @@ The `examples/` directory contains sample metadata exports:
 
 ---
 
-## Unreal Engine Integration
+## Integrations
 
-Unreal integration is handled by a **separate editor tool**:  
-https://github.com/janikowski-dev/Unreal-Asset-Validator
+Each supported tool provides a small editor-side exporter responsible only for extracting asset **metadata** and exporting it to JSON.  
 
-The Unreal tool is intentionally limited to exporting asset **metadata** to JSON.
+### Unreal Engine Integration
 
-All validation logic lives outside the engine.
+Unreal support is provided via a standalone editor plugin:  
+https://github.com/janikowski-dev/Unreal-Metadata-Exporter
+
+### Blender Integration
+
+Blender support is provided via a standalone editor add-on:  
+https://github.com/janikowski-dev/Blender-Metadata-Exporter
 
 ---
 
