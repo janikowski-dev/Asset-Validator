@@ -3,7 +3,7 @@ using AssetValidator.Core.Domain;
 
 namespace AssetValidator.Core.Rules;
 
-public sealed class NoSpacesInPathRule : IValidationRule
+internal sealed class NoSpacesInPathRule : IValidationRule
 {
     public ValidationCategory Category => ValidationCategory.Structure;
     public ValidationSeverity Severity => ValidationSeverity.Warning;

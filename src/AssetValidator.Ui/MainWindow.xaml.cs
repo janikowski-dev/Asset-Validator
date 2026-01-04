@@ -2,10 +2,8 @@
 using System.IO;
 using System.Text.Json;
 using System.Windows;
-using AssetValidator.Core.Abstractions;
 using AssetValidator.Core.Domain;
 using AssetValidator.Core.Engine;
-using AssetValidator.Core.Rules;
 using AssetValidator.Core.Sources;
 using AssetValidator.Ui.Controls;
 using Microsoft.Win32;
@@ -34,9 +32,12 @@ public partial class MainWindow
     {
         try
         {
-            if (!TryReadAssetsFromJson(out IEnumerable<Asset>? assets)) return;
+            if (!TryReadAssetsFromJson(out IEnumerable<Asset>? assets))
+            {
+                return;
+            }
 
-            Validate(assets!);
+            Cache(ValidationRunner.Validate(assets!));
             RefreshUi();
             ShowInfo("Validation finished.");
         }
@@ -135,20 +136,14 @@ public partial class MainWindow
             return false;
         }
 
-        IAssetSource source = new JsonFileAssetSource(dialog.FileName);
+        JsonFileAssetSource source = new(dialog.FileName);
         assets = source.LoadAssets();
         return true;
     }
 
-    private void Validate(IEnumerable<Asset> assets)
+    private void Cache(IReadOnlyList<ValidationResult> results)
     {
-        IValidationRule[] rules =
-        [
-            new ResolutionRule(),
-            new NoSpacesInPathRule()
-        ];
-
-        _validationResults = new ValidationEngine(rules).Validate(assets);
+        _validationResults = results;
     }
 
     private void InitContext()

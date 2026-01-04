@@ -30,7 +30,7 @@ public sealed class ValidationResult
         Asset = asset;
     }
 
-    public static ValidationResult FromRule(IValidationRule rule, Asset asset, string message)
+    internal static ValidationResult FromRule(IValidationRule rule, Asset asset, string message)
     {
         Validate(rule, asset, message);
         return Create(rule, asset, message);

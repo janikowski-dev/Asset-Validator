@@ -2,7 +2,7 @@
 
 namespace AssetValidator.Core.Abstractions;
 
-public interface IAssetSource
+internal interface IAssetSource
 {
     IEnumerable<Asset> LoadAssets();
 }

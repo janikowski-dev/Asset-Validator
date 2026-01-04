@@ -3,7 +3,7 @@ using AssetValidator.Core.Domain;
 
 namespace AssetValidator.Core.Rules;
 
-public sealed class ResolutionRule : IValidationRule
+internal sealed class ResolutionRule : IValidationRule
 {
     public ValidationSeverity Severity => ValidationSeverity.Error;
     public ValidationCategory Category => ValidationCategory.Size;

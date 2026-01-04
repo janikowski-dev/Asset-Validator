@@ -1,8 +1,6 @@
 ﻿using System.Text.Json;
-using AssetValidator.Core.Abstractions;
 using AssetValidator.Core.Domain;
 using AssetValidator.Core.Engine;
-using AssetValidator.Core.Rules;
 using AssetValidator.Core.Sources;
 
 const string outputAsJsonParameterName = "--json-results";
@@ -16,8 +14,9 @@ try
         Environment.Exit(1);
     }
 
-    IReadOnlyList<ValidationResult> results = Validate(assets, out bool hasErrors);
+    IReadOnlyList<ValidationResult> results = ValidationRunner.Validate(assets);
     Console.WriteLine("Validation finished.");
+    bool hasErrors = HasErrors(results);
 
     if (ShouldOutputAsJson(args))
     {
@@ -90,22 +89,11 @@ static bool TryReadAssetsFromJson(string[] args, out IEnumerable<Asset> assets)
         return false;
     }
 
-    IAssetSource source = new JsonFileAssetSource(args[index + 1]);
+    JsonFileAssetSource source = new(args[index + 1]);
     assets = source.LoadAssets();
     return true;
 }
 
-static IReadOnlyList<ValidationResult> Validate(IEnumerable<Asset> assets, out bool hasErrors)
-{
-    IValidationRule[] rules =
-    [
-        new ResolutionRule(),
-        new NoSpacesInPathRule()
-    ];
-
-    IReadOnlyList<ValidationResult> results = new ValidationEngine(rules).Validate(assets);
-    hasErrors = results.Any(r => r.Severity == ValidationSeverity.Error);
-    return results;
-}
+static bool HasErrors(IReadOnlyList<ValidationResult> results) => results.Any(r => r.Severity == ValidationSeverity.Error);
 
 static string ToMessage(params string[] messages) => string.Join("\n\n", messages);

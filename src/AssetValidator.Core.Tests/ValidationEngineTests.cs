@@ -1,7 +1,5 @@
-﻿using AssetValidator.Core.Abstractions;
-using AssetValidator.Core.Domain;
+﻿using AssetValidator.Core.Domain;
 using AssetValidator.Core.Engine;
-using AssetValidator.Core.Rules;
 using FluentAssertions;
 
 namespace AssetValidator.Core.Tests;
@@ -12,14 +10,6 @@ public class ValidationEngineTests
     public void Validator_Runs_All_Rules_On_All_Assets()
     {
         // Arrange
-        IValidationRule[] rules =
-        [
-            new ResolutionRule(),
-            new NoSpacesInPathRule()
-        ];
-
-        ValidationEngine engine = new(rules);
-
         Asset[] assets =
         [
             new()
@@ -36,7 +26,7 @@ public class ValidationEngineTests
         ];
 
         // Act
-        IReadOnlyList<ValidationResult> results = engine.Validate(assets);
+        IReadOnlyList<ValidationResult> results = ValidationRunner.Validate(assets);
         
         // Assert
         results.Should().HaveCount(3);

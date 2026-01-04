@@ -2,7 +2,7 @@
 
 namespace AssetValidator.Core.Abstractions;
 
-public interface IValidationRule
+internal interface IValidationRule
 {
     ValidationCategory Category { get; }
     ValidationSeverity Severity { get; }
