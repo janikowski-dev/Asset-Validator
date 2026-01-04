@@ -4,132 +4,152 @@ using FluentAssertions;
 
 namespace AssetValidator.Core.Tests;
 
-public class ResolutionRuleTests
+public class ResolutionWithinRangeRuleTests
 {
     [Test]
-    public void Invalid_Image_Resolution_Produces_Errors()
+    public void AppliesTo_Image_Returns_True()
     {
         // Arrange
-        ResolutionRule rule = new();
+        ResolutionWithinRangeRule rule = new();
+
+        Asset asset = new()
+        {
+            Type = AssetType.Image
+        };
+
+        // Act
+        bool applies = rule.AppliesTo(asset);
+
+        // Assert
+        applies.Should().BeTrue();
+    }
+
+    [Test]
+    public void AppliesTo_Non_Image_Returns_False()
+    {
+        // Arrange
+        ResolutionWithinRangeRule rule = new();
+
+        Asset asset = new()
+        {
+            Type = AssetType.Mesh
+        };
+
+        // Act
+        bool applies = rule.AppliesTo(asset);
+
+        // Assert
+        applies.Should().BeFalse();
+    }
+
+    [Test]
+    public void Validate_Image_With_Valid_Resolution_Produces_No_Results()
+    {
+        // Arrange
+        ResolutionWithinRangeRule rule = new();
 
         Asset asset = new()
         {
             Type = AssetType.Image,
             Metadata = new Dictionary<string, object>
             {
-                ["Image.Width"] = 4096,
-                ["Image.Height"] = 4096
+                { MetadataKeys.Image.Width, 1024 },
+                { MetadataKeys.Image.Height, 1024 }
             }
         };
+
+        rule.AppliesTo(asset).Should().BeTrue();
+
+        // Act
+        List<ValidationResult> results = rule.Validate(asset).ToList();
+
+        // Assert
+        results.Should().BeEmpty();
+    }
+
+    [Test]
+    public void Validate_Image_With_Height_Too_Small_Produces_Error()
+    {
+        // Arrange
+        ResolutionWithinRangeRule rule = new();
+
+        Asset asset = new()
+        {
+            Type = AssetType.Image,
+            Metadata = new Dictionary<string, object>
+            {
+                { MetadataKeys.Image.Width, 512 },
+                { MetadataKeys.Image.Height, 64 }
+            }
+        };
+
+        rule.AppliesTo(asset).Should().BeTrue();
+
+        // Act
+        List<ValidationResult> results = rule.Validate(asset).ToList();
+
+        // Assert
+        results.Should().HaveCount(1);
+        results[0].Severity.Should().Be(ValidationSeverity.Error);
+    }
+
+    [Test]
+    public void Validate_Image_With_Width_Too_Large_Produces_Error()
+    {
+        // Arrange
+        ResolutionWithinRangeRule rule = new();
+
+        Asset asset = new()
+        {
+            Type = AssetType.Image,
+            Metadata = new Dictionary<string, object>
+            {
+                { MetadataKeys.Image.Width, 4096 },
+                { MetadataKeys.Image.Height, 1024 }
+            }
+        };
+
+        rule.AppliesTo(asset).Should().BeTrue();
+
+        // Act
+        List<ValidationResult> results = rule.Validate(asset).ToList();
+
+        // Assert
+        results.Should().HaveCount(1);
+        results[0].Severity.Should().Be(ValidationSeverity.Error);
+    }
+
+    [Test]
+    public void Validate_Image_With_Invalid_Width_And_Height_Produces_Two_Errors()
+    {
+        // Arrange
+        ResolutionWithinRangeRule rule = new();
+
+        Asset asset = new()
+        {
+            Type = AssetType.Image,
+            Metadata = new Dictionary<string, object>
+            {
+                { MetadataKeys.Image.Width, 64 },
+                { MetadataKeys.Image.Height, 4096 }
+            }
+        };
+
+        rule.AppliesTo(asset).Should().BeTrue();
 
         // Act
         List<ValidationResult> results = rule.Validate(asset).ToList();
 
         // Assert
         results.Should().HaveCount(2);
+        results.Should().OnlyContain(r => r.Severity == ValidationSeverity.Error);
     }
 
     [Test]
-    public void Valid_Image_Resolution_Produces_No_Results()
+    public void Validate_Image_Missing_Metadata_Produces_No_Results()
     {
         // Arrange
-        ResolutionRule rule = new();
-
-        Asset asset = new()
-        {
-            Type = AssetType.Image,
-            Metadata = new Dictionary<string, object>
-            {
-                ["Image.Width"] = 1024,
-                ["Image.Height"] = 1024
-            }
-        };
-
-        // Act
-        List<ValidationResult> results = rule.Validate(asset).ToList();
-
-        // Assert
-        results.Should().BeEmpty();
-    }
-
-    [Test]
-    public void Image_With_Invalid_Height_Only_Produces_One_Error()
-    {
-        // Arrange
-        ResolutionRule rule = new();
-
-        Asset asset = new()
-        {
-            Type = AssetType.Image,
-            Metadata = new Dictionary<string, object>
-            {
-                ["Image.Width"] = 512,
-                ["Image.Height"] = 4096
-            }
-        };
-
-        // Act
-        List<ValidationResult> results = rule.Validate(asset).ToList();
-
-        // Assert
-        results.Should().HaveCount(1);
-        results[0].Message.Should().Contain("Height");
-        results[0].Severity.Should().Be(ValidationSeverity.Error);
-    }
-
-    [Test]
-    public void Image_With_Invalid_Width_Only_Produces_One_Error()
-    {
-        // Arrange
-        ResolutionRule rule = new();
-
-        Asset asset = new()
-        {
-            Type = AssetType.Image,
-            Metadata = new Dictionary<string, object>
-            {
-                ["Image.Width"] = 4096,
-                ["Image.Height"] = 512
-            }
-        };
-
-        // Act
-        List<ValidationResult> results = rule.Validate(asset).ToList();
-
-        // Assert
-        results.Should().HaveCount(1);
-        results[0].Message.Should().Contain("Width");
-        results[0].Severity.Should().Be(ValidationSeverity.Error);
-    }
-
-    [Test]
-    public void Non_Image_Asset_Produces_No_Results()
-    {
-        // Arrange
-        ResolutionRule rule = new();
-
-        Asset asset = new()
-        {
-            Type = AssetType.Mesh,
-            Metadata = new Dictionary<string, object>
-            {
-                ["Image.Width"] = 4096,
-                ["Image.Height"] = 4096
-            }
-        };
-
-        // Act
-        List<ValidationResult> results = rule.Validate(asset).ToList();
-
-        // Assert
-        results.Should().BeEmpty();
-    }
-
-    [Test]
-    public void Missing_Metadata_Produces_No_Results()
-    {
-        // Arrange
-        ResolutionRule rule = new();
+        ResolutionWithinRangeRule rule = new();
 
         Asset asset = new()
         {
@@ -137,6 +157,8 @@ public class ResolutionRuleTests
             Metadata = new Dictionary<string, object>()
         };
 
+        rule.AppliesTo(asset).Should().BeTrue();
+
         // Act
         List<ValidationResult> results = rule.Validate(asset).ToList();
 
@@ -145,20 +167,22 @@ public class ResolutionRuleTests
     }
 
     [Test]
-    public void Invalid_Metadata_Types_Produce_No_Results()
+    public void Validate_Image_With_Invalid_Metadata_Type_Produces_No_Results()
     {
         // Arrange
-        ResolutionRule rule = new();
+        ResolutionWithinRangeRule rule = new();
 
         Asset asset = new()
         {
             Type = AssetType.Image,
             Metadata = new Dictionary<string, object>
             {
-                ["Image.Width"] = "1024",
-                ["Image.Height"] = "1024"
+                { MetadataKeys.Image.Width, "1024" },
+                { MetadataKeys.Image.Height, 1024 }
             }
         };
+
+        rule.AppliesTo(asset).Should().BeTrue();
 
         // Act
         List<ValidationResult> results = rule.Validate(asset).ToList();

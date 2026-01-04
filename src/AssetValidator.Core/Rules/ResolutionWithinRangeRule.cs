@@ -3,12 +3,12 @@ using AssetValidator.Core.Domain;
 
 namespace AssetValidator.Core.Rules;
 
-internal sealed class ResolutionRule : IValidationRule
+internal sealed class ResolutionWithinRangeRule : IValidationRule
 {
     public ValidationSeverity Severity => ValidationSeverity.Error;
     public ValidationCategory Category => ValidationCategory.Size;
-    public string Name => "Image Resolution";
-    public string Id => "IMG_RES_001";
+    public string Name => "Image Resolution Within Range";
+    public string Id => "IMAGE_001";
 
     private const int MaxHeight = 2048;
     private const int MinHeight = 128;
@@ -17,11 +17,6 @@ internal sealed class ResolutionRule : IValidationRule
 
     public IEnumerable<ValidationResult> Validate(Asset asset)
     {
-        if (!IsApplicable(asset))
-        {
-            yield break;
-        }
-
         if (!TryGetSize(asset, out int width, out int height))
         {
             yield break;
@@ -29,16 +24,16 @@ internal sealed class ResolutionRule : IValidationRule
 
         if (!IsHeightValid(height))
         {
-            yield return ValidationResult.FromRule(this, asset, $"Height is invalid ({height}).");
+            yield return ValidationResult.FromRule(this, asset, $"Height is invalid ({height})");
         }
 
         if (!IsWidthValid(width))
         {
-            yield return ValidationResult.FromRule(this, asset, $"Width is invalid ({width}).");
+            yield return ValidationResult.FromRule(this, asset, $"Width is invalid ({width})");
         }
     }
 
-    private static bool IsApplicable(Asset asset) => asset.Type == AssetType.Image;
+    public bool AppliesTo(Asset asset) => asset.Type == AssetType.Image;
 
     private static bool TryGetSize(Asset asset, out int width, out int height)
     {

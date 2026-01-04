@@ -19,6 +19,11 @@ internal sealed class ValidationEngine(IEnumerable<IValidationRule> rules)
         {
             foreach (IValidationRule rule in rules)
             {
+                if (!rule.AppliesTo(asset))
+                {
+                    continue;
+                }
+                
                 foreach (ValidationResult result in rule.Validate(asset))
                 {
                     results.Add(result);

@@ -7,8 +7,8 @@ internal sealed class NoSpacesInPathRule : IValidationRule
 {
     public ValidationCategory Category => ValidationCategory.Structure;
     public ValidationSeverity Severity => ValidationSeverity.Warning;
-    public string Name => "No spaces in asset path";
-    public string Id => "PATH_STRUCT_001";
+    public string Name => "No Spaces In Path";
+    public string Id => "GENERAL_001";
 
     public IEnumerable<ValidationResult> Validate(Asset asset)
     {
@@ -22,6 +22,8 @@ internal sealed class NoSpacesInPathRule : IValidationRule
             yield return ValidationResult.FromRule(this, asset, $"Asset path contains spaces: \"{asset.Path}\"");
         }
     }
+
+    public bool AppliesTo(Asset asset) => asset.Source != SourceType.Blender;
 
     private static bool IsPathEmpty(Asset asset) => string.IsNullOrWhiteSpace(asset.Path);
 

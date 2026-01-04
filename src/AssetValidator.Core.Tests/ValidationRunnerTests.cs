@@ -24,7 +24,7 @@ public class ValidationRunnerTests
 
         // Assert
         results.Should().ContainSingle(r =>
-            r.RuleId == "PATH_STRUCT_001" &&
+            r.RuleId == "GENERAL_001" &&
             r.Severity == ValidationSeverity.Warning
         );
     }
@@ -48,7 +48,7 @@ public class ValidationRunnerTests
 
         // Assert
         results.Should().ContainSingle(r =>
-            r.RuleId == "PATH_STRUCT_001" &&
+            r.RuleId == "GENERAL_001" &&
             r.Severity == ValidationSeverity.Warning
         );
     }

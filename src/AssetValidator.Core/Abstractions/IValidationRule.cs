@@ -10,4 +10,5 @@ internal interface IValidationRule
     string Id { get; }
     
     IEnumerable<ValidationResult> Validate(Asset asset);
+    bool AppliesTo(Asset asset);
 }

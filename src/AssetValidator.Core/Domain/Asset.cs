@@ -9,6 +9,9 @@ public sealed class Asset
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public AssetType Type { get; internal init; }
     
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public SourceType Source { get; internal init; }
+    
     public long SizeInBytes { get; internal init; }
     public string Name { get; internal init; } = string.Empty;
     public string Path { get; internal init; } = string.Empty;
@@ -22,12 +25,14 @@ public sealed class Asset
         string name,
         string path,
         AssetType type,
+        SourceType source,
         long sizeInBytes,
         IReadOnlyDictionary<string, object> metadata)
     {
         Name = name;
         Path = path;
         Type = type;
+        Source = source;
         SizeInBytes = sizeInBytes;
         Metadata = metadata;
     }
