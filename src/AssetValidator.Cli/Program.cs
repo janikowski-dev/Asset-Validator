@@ -8,13 +8,13 @@ const string inputPathParameterName = "--input";
 
 try
 {
-    if (!TryReadAssetsFromJson(args, out IEnumerable<Asset> assets))
+    if (!TryGetJsonPath(args, out string? filePath))
     {
         Console.WriteLine($"Usage: AssetValidator.Cli {inputPathParameterName} <assets.json> [{outputAsJsonParameterName}]");
         Environment.Exit(1);
     }
 
-    IReadOnlyList<ValidationResult> results = ValidationRunner.Validate(assets);
+    IReadOnlyList<ValidationResult> results = ValidationRunner.Validate(filePath!);
     Console.WriteLine("Validation finished.");
     bool hasErrors = HasErrors(results);
 
@@ -79,18 +79,17 @@ static string ToJson(IReadOnlyList<ValidationResult> results)
     return JsonSerializer.Serialize(results, options);
 }
 
-static bool TryReadAssetsFromJson(string[] args, out IEnumerable<Asset> assets)
+static bool TryGetJsonPath(string[] args, out string? filePath)
 {
     int index = Array.IndexOf(args, inputPathParameterName);
-    assets = [];
+    filePath = null;
     
     if (index < 0 || index == args.Length - 1)
     {
         return false;
     }
 
-    JsonFileAssetSource source = new(args[index + 1]);
-    assets = source.LoadAssets();
+    filePath = args[index + 1];
     return true;
 }
 

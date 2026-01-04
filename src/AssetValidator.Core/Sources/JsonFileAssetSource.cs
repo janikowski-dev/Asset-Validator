@@ -4,7 +4,7 @@ using AssetValidator.Core.Domain;
 
 namespace AssetValidator.Core.Sources;
 
-public sealed class JsonFileAssetSource(string filePath) : IAssetSource
+internal sealed class JsonFileAssetSource(string filePath) : IAssetSource
 {
     public IEnumerable<Asset> LoadAssets()
     {

@@ -4,7 +4,6 @@ using System.Text.Json;
 using System.Windows;
 using AssetValidator.Core.Domain;
 using AssetValidator.Core.Engine;
-using AssetValidator.Core.Sources;
 using AssetValidator.Ui.Controls;
 using Microsoft.Win32;
 
@@ -32,12 +31,12 @@ public partial class MainWindow
     {
         try
         {
-            if (!TryReadAssetsFromJson(out IEnumerable<Asset>? assets))
+            if (!TryGetJsonPath(out string? filePath))
             {
                 return;
             }
 
-            Cache(ValidationRunner.Validate(assets!));
+            Cache(ValidationRunner.Validate(filePath!));
             RefreshUi();
             ShowInfo("Validation finished.");
         }
@@ -121,7 +120,7 @@ public partial class MainWindow
     
     private static string ToMessage(string[] messages) => string.Join("\n\n", messages);
 
-    private static bool TryReadAssetsFromJson(out IEnumerable<Asset>? assets)
+    private static bool TryGetJsonPath(out string? filePath)
     {
         OpenFileDialog dialog = new()
         {
@@ -129,15 +128,14 @@ public partial class MainWindow
             Title = "Validate assets",
             Multiselect = false
         };
-        assets = null;
+        filePath = null;
 
         if (dialog.ShowDialog() != true)
         {
             return false;
         }
 
-        JsonFileAssetSource source = new(dialog.FileName);
-        assets = source.LoadAssets();
+        filePath = dialog.FileName;
         return true;
     }
 
