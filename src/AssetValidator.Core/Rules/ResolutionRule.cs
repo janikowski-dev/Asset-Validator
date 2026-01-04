@@ -9,9 +9,6 @@ internal sealed class ResolutionRule : IValidationRule
     public ValidationCategory Category => ValidationCategory.Size;
     public string Name => "Image Resolution";
     public string Id => "IMG_RES_001";
-    
-    private const string HeightMetadataName = "Image.Height";
-    private const string WidthMetadataName = "Image.Width";
 
     private const int MaxHeight = 2048;
     private const int MinHeight = 128;
@@ -48,7 +45,7 @@ internal sealed class ResolutionRule : IValidationRule
         height = -1;
         width = -1;
 
-        if (!asset.Metadata.TryGetValue(HeightMetadataName, out object? heightObject))
+        if (!asset.Metadata.TryGetValue(MetadataKeys.Image.Height, out object? heightObject))
         {
             return false;
         }
@@ -60,7 +57,7 @@ internal sealed class ResolutionRule : IValidationRule
 
         height = heightInt;
 
-        if (!asset.Metadata.TryGetValue(WidthMetadataName, out object? widthObject))
+        if (!asset.Metadata.TryGetValue(MetadataKeys.Image.Width, out object? widthObject))
         {
             return false;
         }
