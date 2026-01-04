@@ -17,4 +17,12 @@
       <Resource Include="Assets\Icon.ico" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Page Update="Controls\HeaderView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+    </ItemGroup>
+
 </Project>
