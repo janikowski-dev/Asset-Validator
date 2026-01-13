@@ -1,5 +1,4 @@
 ﻿using System.Numerics;
-using System.Text.Json;
 using AssetValidator.Core.Abstractions;
 using AssetValidator.Core.Domain;
 
@@ -14,14 +13,14 @@ internal sealed class RotationAppliedRule : IValidationRule
     
     public IEnumerable<ValidationResult> Validate(Asset asset)
     {
-        if (!TryGetRotationEuler(asset, out Vector3 scale))
+        if (!MetadataKeys.TryReadValue(asset, MetadataKeys.Transform.RotationEuler, out Vector3 euler))
         {
             yield break;
         }
 
-        if (!IsRotationApplied(scale))
+        if (!IsRotationApplied(euler))
         {
-            yield return ValidationResult.FromRule(this, asset, $"Rotation is not applied {scale}");
+            yield return ValidationResult.FromRule(this, asset, $"Rotation is not applied {euler}");
         }
     }
 
@@ -35,37 +34,5 @@ internal sealed class RotationAppliedRule : IValidationRule
         return asset.Type == AssetType.Mesh;
     }
     
-    private static bool TryGetRotationEuler(Asset asset, out Vector3 euler)
-    {
-        euler = Vector3.NaN;
-
-        if (!asset.Metadata.TryGetValue(MetadataKeys.Transform.RotationEuler, out object? scaleObject))
-        {
-            return false;
-        }
-
-        if (scaleObject is not JsonElement eulerElement)
-        {
-            return false;
-        }
-
-        if (eulerElement.ValueKind != JsonValueKind.Array)
-        {
-            return false;
-        }
-
-        if (eulerElement.GetArrayLength() != 3)
-        {
-            return false;
-        }
-
-        euler = new Vector3(
-            eulerElement[0].GetSingle(),
-            eulerElement[1].GetSingle(),
-            eulerElement[2].GetSingle()
-        );
-        return true;
-    }
-    
-    private static bool IsRotationApplied(Vector3 scale) => scale == Vector3.Zero;
+    private static bool IsRotationApplied(Vector3 euler) => euler == Vector3.Zero;
 }

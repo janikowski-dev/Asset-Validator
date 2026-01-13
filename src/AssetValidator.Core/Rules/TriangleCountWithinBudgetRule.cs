@@ -14,7 +14,7 @@ internal sealed class TriangleCountWithinBudgetRule : IValidationRule
     
     public IEnumerable<ValidationResult> Validate(Asset asset)
     {
-        if (!TryGetTriangleCount(asset, out int count))
+        if (!MetadataKeys.TryReadValue(asset, MetadataKeys.Mesh.TriangleCount, out int count))
         {
             yield break;
         }
@@ -27,23 +27,5 @@ internal sealed class TriangleCountWithinBudgetRule : IValidationRule
 
     public bool AppliesTo(Asset asset) => asset.Type == AssetType.Mesh;
     
-    private static bool TryGetTriangleCount(Asset asset, out int count)
-    {
-        count = -1;
-
-        if (!asset.Metadata.TryGetValue(MetadataKeys.Mesh.TriangleCount, out object? countObject))
-        {
-            return false;
-        }
-
-        if (countObject is not int countInt)
-        {
-            return false;
-        }
-
-        count = countInt;
-        return true;
-    }
-
     private bool IsWithinBudget(int count) => count <= TriangleBudget;
 }

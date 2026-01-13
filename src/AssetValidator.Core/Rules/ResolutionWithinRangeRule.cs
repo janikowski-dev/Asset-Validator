@@ -17,7 +17,12 @@ internal sealed class ResolutionWithinRangeRule : IValidationRule
 
     public IEnumerable<ValidationResult> Validate(Asset asset)
     {
-        if (!TryGetSize(asset, out int width, out int height))
+        if (!MetadataKeys.TryReadValue(asset, MetadataKeys.Image.Height, out int height))
+        {
+            yield break;
+        }
+        
+        if (!MetadataKeys.TryReadValue(asset, MetadataKeys.Image.Width, out int width))
         {
             yield break;
         }
@@ -34,37 +39,6 @@ internal sealed class ResolutionWithinRangeRule : IValidationRule
     }
 
     public bool AppliesTo(Asset asset) => asset.Type == AssetType.Image;
-
-    private static bool TryGetSize(Asset asset, out int width, out int height)
-    {
-        height = -1;
-        width = -1;
-
-        if (!asset.Metadata.TryGetValue(MetadataKeys.Image.Height, out object? heightObject))
-        {
-            return false;
-        }
-
-        if (heightObject is not int heightInt)
-        {
-            return false;
-        }
-
-        height = heightInt;
-
-        if (!asset.Metadata.TryGetValue(MetadataKeys.Image.Width, out object? widthObject))
-        {
-            return false;
-        }
-
-        if (widthObject is not int widthInt)
-        {
-            return false;
-        }
-
-        width = widthInt;
-        return true;
-    }
 
     private static bool IsHeightValid(int height)
     {

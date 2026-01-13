@@ -1,10 +1,11 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace AssetValidator.Core.Domain;
 
 public sealed class Asset
 {
-    public IReadOnlyDictionary<string, object> Metadata { get; internal init; } = new Dictionary<string, object>();
+    public IReadOnlyDictionary<string, JsonElement> Metadata { get; internal init; } = new Dictionary<string, JsonElement>();
     
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public AssetType Type { get; internal init; }
@@ -27,7 +28,7 @@ public sealed class Asset
         AssetType type,
         SourceType source,
         long sizeInBytes,
-        IReadOnlyDictionary<string, object> metadata)
+        IReadOnlyDictionary<string, JsonElement> metadata)
     {
         Name = name;
         Path = path;

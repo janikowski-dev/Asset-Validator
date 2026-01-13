@@ -15,7 +15,12 @@ internal sealed class TopologyDensityWithinRangeRule : IValidationRule
     
     public IEnumerable<ValidationResult> Validate(Asset asset)
     {
-        if (!TryGetInfo(asset, out int vertexCount, out int triangleCount))
+        if (!MetadataKeys.TryReadValue(asset, MetadataKeys.Mesh.TriangleCount, out int triangleCount))
+        {
+            yield break;
+        }
+        
+        if (!MetadataKeys.TryReadValue(asset, MetadataKeys.Mesh.VertexCount, out int vertexCount))
         {
             yield break;
         }
@@ -27,37 +32,6 @@ internal sealed class TopologyDensityWithinRangeRule : IValidationRule
     }
 
     public bool AppliesTo(Asset asset) => asset.Type == AssetType.Mesh;
-    
-    private static bool TryGetInfo(Asset asset, out int vertexCount, out int triangleCount)
-    {
-        triangleCount = -1;
-        vertexCount = -1;
-
-        if (!asset.Metadata.TryGetValue(MetadataKeys.Mesh.TriangleCount, out object? triangleCountObject))
-        {
-            return false;
-        }
-
-        if (triangleCountObject is not int triangleCountInt)
-        {
-            return false;
-        }
-
-        triangleCount = triangleCountInt;
-
-        if (!asset.Metadata.TryGetValue(MetadataKeys.Mesh.VertexCount, out object? vertexCountObject))
-        {
-            return false;
-        }
-
-        if (vertexCountObject is not int vertexCountInt)
-        {
-            return false;
-        }
-
-        vertexCount = vertexCountInt;
-        return true;
-    }
     
     private static bool IsDensityWithinRange(int vertexCount, int triangleCount)
     {

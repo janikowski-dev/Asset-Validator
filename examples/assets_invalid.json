@@ -1,52 +1,72 @@
 [
   {
+    "Name": "BadScaleMesh",
+    "Path": "/Blender/BadScaleMesh",
+    "Type": "Mesh",
+    "Source": "Blender",
+    "SizeInBytes": 1024,
+    "Metadata": {
+      "Transform.Scale": [2.0, 1.0, 1.0]
+    }
+  },
+  {
+    "Name": "BadRotationMesh",
+    "Path": "/Blender/BadRotationMesh",
+    "Type": "Mesh",
+    "Source": "Blender",
+    "SizeInBytes": 1024,
+    "Metadata": {
+      "Transform.RotationEuler": [0.0, 45.0, 0.0]
+    }
+  },
+  {
+    "Name": "TooDenseMesh",
+    "Path": "/Game/Meshes/TooDenseMesh",
+    "Type": "Mesh",
+    "Source": "Unreal",
+    "SizeInBytes": 2048,
+    "Metadata": {
+      "Mesh.VertexCount": 10,
+      "Mesh.TriangleCount": 100
+    }
+  },
+  {
+    "Name": "TooManyTrianglesMesh",
+    "Path": "/Game/Meshes/TooManyTrianglesMesh",
+    "Type": "Mesh",
+    "Source": "Unreal",
+    "SizeInBytes": 4096,
+    "Metadata": {
+      "Mesh.TriangleCount": 50000
+    }
+  },
+  {
+    "Name": "NgonMesh",
+    "Path": "/Blender/NgonMesh",
+    "Type": "Mesh",
+    "Source": "Blender",
+    "SizeInBytes": 1024,
+    "Metadata": {
+      "Mesh.NgonCount": 3
+    }
+  },
+  {
+    "Name": "SpaceInPathAsset",
+    "Path": "/Game/Bad Folder/Asset",
     "Type": "Image",
-    "Name": "Huge Image",
-    "Path": "Textures/UI/Huge Image.png",
-    "SizeInBytes": 4194304,
+    "Source": "Unreal",
+    "SizeInBytes": 512,
+    "Metadata": {}
+  },
+  {
+    "Name": "BadResolutionImage",
+    "Path": "/Game/Textures/BadResolution",
+    "Type": "Image",
+    "Source": "Unreal",
+    "SizeInBytes": 2048,
     "Metadata": {
       "Image.Width": 4096,
-      "Image.Height": 4096
-    }
-  },
-  {
-    "Type": "Image",
-    "Name": "Tiny Image",
-    "Path": "Textures/UI/TinyImage.png",
-    "SizeInBytes": 65536,
-    "Metadata": {
-      "Image.Width": 64,
       "Image.Height": 64
-    }
-  },
-  {
-    "Type": "Image",
-    "Name": "Spaced Image",
-    "Path": "Textures/UI/Spaced Image.png",
-    "SizeInBytes": 262144,
-    "Metadata": {
-      "Image.Width": 512,
-      "Image.Height": 512
-    }
-  },
-  {
-    "Type": "Mesh",
-    "Name": "Bad Mesh One",
-    "Path": "Meshes/Props/Bad Mesh One.fbx",
-    "SizeInBytes": 2097152,
-    "Metadata": {
-      "Mesh.VertexCount": 9000,
-      "Mesh.TriangleCount": 6000
-    }
-  },
-  {
-    "Type": "Mesh",
-    "Name": "Bad Mesh Two",
-    "Path": "Meshes/Bad Mesh Two.fbx",
-    "SizeInBytes": 3145728,
-    "Metadata": {
-      "Mesh.VertexCount": 12000,
-      "Mesh.TriangleCount": 8000
     }
   }
 ]

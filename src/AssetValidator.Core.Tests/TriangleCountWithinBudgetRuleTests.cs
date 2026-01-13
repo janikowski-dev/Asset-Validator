@@ -1,4 +1,5 @@
-﻿using AssetValidator.Core.Domain;
+﻿using System.Text.Json;
+using AssetValidator.Core.Domain;
 using AssetValidator.Core.Rules;
 using FluentAssertions;
 
@@ -51,9 +52,9 @@ public class TriangleCountWithinBudgetRuleTests
         Asset asset = new()
         {
             Type = AssetType.Mesh,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Mesh.TriangleCount, 25_000 }
+                { MetadataKeys.Mesh.TriangleCount, JsonSerializer.SerializeToElement(25_000) }
             }
         };
 
@@ -75,9 +76,9 @@ public class TriangleCountWithinBudgetRuleTests
         Asset asset = new()
         {
             Type = AssetType.Mesh,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Mesh.TriangleCount, 40_000 }
+                { MetadataKeys.Mesh.TriangleCount, JsonSerializer.SerializeToElement(40_000) }
             }
         };
 
@@ -99,9 +100,9 @@ public class TriangleCountWithinBudgetRuleTests
         Asset asset = new()
         {
             Type = AssetType.Mesh,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Mesh.TriangleCount, 50_000 }
+                { MetadataKeys.Mesh.TriangleCount, JsonSerializer.SerializeToElement(50_000) }
             }
         };
 
@@ -124,7 +125,7 @@ public class TriangleCountWithinBudgetRuleTests
         Asset asset = new()
         {
             Type = AssetType.Mesh,
-            Metadata = new Dictionary<string, object>()
+            Metadata = new Dictionary<string, JsonElement>()
         };
 
         rule.AppliesTo(asset).Should().BeTrue();
@@ -145,9 +146,9 @@ public class TriangleCountWithinBudgetRuleTests
         Asset asset = new()
         {
             Type = AssetType.Mesh,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Mesh.TriangleCount, "40000" }
+                { MetadataKeys.Mesh.TriangleCount, JsonSerializer.SerializeToElement("40000") }
             }
         };
 
