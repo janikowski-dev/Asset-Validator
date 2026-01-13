@@ -1,52 +1,38 @@
 [
   {
-    "Type": "Image",
-    "Name": "IconPlay",
-    "Path": "Textures/UI/IconPlay.png",
-    "SizeInBytes": 262144,
+    "Name": "CleanBlenderMesh",
+    "Path": "/Blender/CleanBlenderMesh",
+    "Type": "Mesh",
+    "Source": "Blender",
+    "SizeInBytes": 2048,
     "Metadata": {
-      "Image.Width": 256,
-      "Image.Height": 256
+      "Transform.Scale": [1.0, 1.0, 1.0],
+      "Transform.RotationEuler": [0.0, 0.0, 0.0],
+      "Mesh.VertexCount": 24000,
+      "Mesh.TriangleCount": 12000,
+      "Mesh.NgonCount": 0
     }
   },
   {
-    "Type": "Image",
-    "Name": "IconPause",
-    "Path": "Textures/UI/IconPause.png",
-    "SizeInBytes": 262144,
+    "Name": "CleanUnrealMesh",
+    "Path": "/Game/Meshes/CleanUnrealMesh",
+    "Type": "Mesh",
+    "Source": "Unreal",
+    "SizeInBytes": 4096,
     "Metadata": {
-      "Image.Width": 512,
-      "Image.Height": 512
+      "Mesh.VertexCount": 20000,
+      "Mesh.TriangleCount": 10000
     }
   },
   {
+    "Name": "CleanTexture",
+    "Path": "/Game/Textures/CleanTexture",
     "Type": "Image",
-    "Name": "IconStop",
-    "Path": "Textures/UI/IconStop.png",
-    "SizeInBytes": 524288,
+    "Source": "Unreal",
+    "SizeInBytes": 1024,
     "Metadata": {
       "Image.Width": 1024,
       "Image.Height": 1024
-    }
-  },
-  {
-    "Type": "Mesh",
-    "Name": "Crate",
-    "Path": "Meshes/Props/Crate.fbx",
-    "SizeInBytes": 1048576,
-    "Metadata": {
-      "Mesh.VertexCount": 1234,
-      "Mesh.TriangleCount": 567
-    }
-  },
-  {
-    "Type": "Mesh",
-    "Name": "Barrel",
-    "Path": "Meshes/Props/Barrel.fbx",
-    "SizeInBytes": 1572864,
-    "Metadata": {
-      "Mesh.VertexCount": 2048,
-      "Mesh.TriangleCount": 1024
     }
   }
 ]

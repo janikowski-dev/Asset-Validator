@@ -1,4 +1,5 @@
-﻿using AssetValidator.Core.Domain;
+﻿using System.Text.Json;
+using AssetValidator.Core.Domain;
 using AssetValidator.Core.Rules;
 using FluentAssertions;
 
@@ -73,9 +74,9 @@ public class NoNgonsRuleTests
         {
             Type = AssetType.Mesh,
             Source = SourceType.Blender,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Mesh.NgonCount, 3 }
+                { MetadataKeys.Mesh.NgonCount, JsonSerializer.SerializeToElement(3) }
             }
         };
 
@@ -99,9 +100,9 @@ public class NoNgonsRuleTests
         {
             Type = AssetType.Mesh,
             Source = SourceType.Blender,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Mesh.NgonCount, 0 }
+                { MetadataKeys.Mesh.NgonCount, JsonSerializer.SerializeToElement(0) }
             }
         };
 
@@ -124,7 +125,7 @@ public class NoNgonsRuleTests
         {
             Type = AssetType.Mesh,
             Source = SourceType.Blender,
-            Metadata = new Dictionary<string, object>()
+            Metadata = new Dictionary<string, JsonElement>()
         };
 
         rule.AppliesTo(asset).Should().BeTrue();
@@ -146,9 +147,9 @@ public class NoNgonsRuleTests
         {
             Type = AssetType.Mesh,
             Source = SourceType.Blender,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Mesh.NgonCount, "five" }
+                { MetadataKeys.Mesh.NgonCount, JsonSerializer.SerializeToElement("five") }
             }
         };
 

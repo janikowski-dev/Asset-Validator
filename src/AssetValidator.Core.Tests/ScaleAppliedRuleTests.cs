@@ -74,7 +74,7 @@ public class ScaleAppliedRuleTests
         {
             Type = AssetType.Mesh,
             Source = SourceType.Blender,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
                 {
                     MetadataKeys.Transform.Scale,
@@ -103,7 +103,7 @@ public class ScaleAppliedRuleTests
         {
             Type = AssetType.Mesh,
             Source = SourceType.Blender,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
                 {
                     MetadataKeys.Transform.Scale,
@@ -131,7 +131,7 @@ public class ScaleAppliedRuleTests
         {
             Type = AssetType.Mesh,
             Source = SourceType.Blender,
-            Metadata = new Dictionary<string, object>()
+            Metadata = new Dictionary<string, JsonElement>()
         };
 
         rule.AppliesTo(asset).Should().BeTrue();
@@ -153,9 +153,9 @@ public class ScaleAppliedRuleTests
         {
             Type = AssetType.Mesh,
             Source = SourceType.Blender,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Transform.Scale, "1,1,1" }
+                { MetadataKeys.Transform.Scale, JsonSerializer.SerializeToElement("1,1,1") }
             }
         };
 
@@ -178,7 +178,7 @@ public class ScaleAppliedRuleTests
         {
             Type = AssetType.Mesh,
             Source = SourceType.Blender,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
                 {
                     MetadataKeys.Transform.Scale,

@@ -74,7 +74,7 @@ public class RotationAppliedRuleTests
         {
             Type = AssetType.Mesh,
             Source = SourceType.Blender,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
                 {
                     MetadataKeys.Transform.RotationEuler,
@@ -103,7 +103,7 @@ public class RotationAppliedRuleTests
         {
             Type = AssetType.Mesh,
             Source = SourceType.Blender,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
                 {
                     MetadataKeys.Transform.RotationEuler,
@@ -131,7 +131,7 @@ public class RotationAppliedRuleTests
         {
             Type = AssetType.Mesh,
             Source = SourceType.Blender,
-            Metadata = new Dictionary<string, object>()
+            Metadata = new Dictionary<string, JsonElement>()
         };
 
         rule.AppliesTo(asset).Should().BeTrue();
@@ -153,9 +153,9 @@ public class RotationAppliedRuleTests
         {
             Type = AssetType.Mesh,
             Source = SourceType.Blender,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Transform.RotationEuler, "0,0,0" }
+                { MetadataKeys.Transform.RotationEuler, JsonSerializer.SerializeToElement("0,0,0") }
             }
         };
 
@@ -178,7 +178,7 @@ public class RotationAppliedRuleTests
         {
             Type = AssetType.Mesh,
             Source = SourceType.Blender,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
                 {
                     MetadataKeys.Transform.RotationEuler,

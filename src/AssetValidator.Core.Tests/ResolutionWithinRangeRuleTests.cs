@@ -1,4 +1,5 @@
-﻿using AssetValidator.Core.Domain;
+﻿using System.Text.Json;
+using AssetValidator.Core.Domain;
 using AssetValidator.Core.Rules;
 using FluentAssertions;
 
@@ -51,10 +52,10 @@ public class ResolutionWithinRangeRuleTests
         Asset asset = new()
         {
             Type = AssetType.Image,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Image.Width, 1024 },
-                { MetadataKeys.Image.Height, 1024 }
+                { MetadataKeys.Image.Width, JsonSerializer.SerializeToElement(1024) },
+                { MetadataKeys.Image.Height, JsonSerializer.SerializeToElement(1024) }
             }
         };
 
@@ -76,10 +77,10 @@ public class ResolutionWithinRangeRuleTests
         Asset asset = new()
         {
             Type = AssetType.Image,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Image.Width, 512 },
-                { MetadataKeys.Image.Height, 64 }
+                { MetadataKeys.Image.Width, JsonSerializer.SerializeToElement(512) },
+                { MetadataKeys.Image.Height, JsonSerializer.SerializeToElement(64) }
             }
         };
 
@@ -102,10 +103,10 @@ public class ResolutionWithinRangeRuleTests
         Asset asset = new()
         {
             Type = AssetType.Image,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Image.Width, 4096 },
-                { MetadataKeys.Image.Height, 1024 }
+                { MetadataKeys.Image.Width, JsonSerializer.SerializeToElement(4096) },
+                { MetadataKeys.Image.Height, JsonSerializer.SerializeToElement(1024) }
             }
         };
 
@@ -128,10 +129,10 @@ public class ResolutionWithinRangeRuleTests
         Asset asset = new()
         {
             Type = AssetType.Image,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Image.Width, 64 },
-                { MetadataKeys.Image.Height, 4096 }
+                { MetadataKeys.Image.Width, JsonSerializer.SerializeToElement(64) },
+                { MetadataKeys.Image.Height, JsonSerializer.SerializeToElement(4096) }
             }
         };
 
@@ -154,7 +155,7 @@ public class ResolutionWithinRangeRuleTests
         Asset asset = new()
         {
             Type = AssetType.Image,
-            Metadata = new Dictionary<string, object>()
+            Metadata = new Dictionary<string, JsonElement>()
         };
 
         rule.AppliesTo(asset).Should().BeTrue();
@@ -175,10 +176,10 @@ public class ResolutionWithinRangeRuleTests
         Asset asset = new()
         {
             Type = AssetType.Image,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Image.Width, "1024" },
-                { MetadataKeys.Image.Height, 1024 }
+                { MetadataKeys.Image.Width, JsonSerializer.SerializeToElement("1024") },
+                { MetadataKeys.Image.Height, JsonSerializer.SerializeToElement(1024) }
             }
         };
 

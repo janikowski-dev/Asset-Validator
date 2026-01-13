@@ -12,7 +12,7 @@ internal sealed class NoNgonsRule : IValidationRule
     
     public IEnumerable<ValidationResult> Validate(Asset asset)
     {
-        if (!TryGetNgonCount(asset, out int count))
+        if (!MetadataKeys.TryReadValue(asset, MetadataKeys.Mesh.NgonCount, out int count))
         {
             yield break;
         }
@@ -31,24 +31,6 @@ internal sealed class NoNgonsRule : IValidationRule
         }
 
         return asset.Type == AssetType.Mesh;
-    }
-    
-    private static bool TryGetNgonCount(Asset asset, out int count)
-    {
-        count = -1;
-
-        if (!asset.Metadata.TryGetValue(MetadataKeys.Mesh.NgonCount, out object? countObject))
-        {
-            return false;
-        }
-
-        if (countObject is not int countInt)
-        {
-            return false;
-        }
-
-        count = countInt;
-        return true;
     }
 
     private bool HasNgons(int count) => count > 0;

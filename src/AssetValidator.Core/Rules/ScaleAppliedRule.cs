@@ -14,7 +14,7 @@ internal sealed class ScaleAppliedRule : IValidationRule
     
     public IEnumerable<ValidationResult> Validate(Asset asset)
     {
-        if (!TryGetScale(asset, out Vector3 scale))
+        if (!MetadataKeys.TryReadValue(asset, MetadataKeys.Transform.Scale, out Vector3 scale))
         {
             yield break;
         }
@@ -33,38 +33,6 @@ internal sealed class ScaleAppliedRule : IValidationRule
         }
         
         return asset.Type == AssetType.Mesh;
-    }
-    
-    private static bool TryGetScale(Asset asset, out Vector3 scale)
-    {
-        scale = Vector3.NaN;
-
-        if (!asset.Metadata.TryGetValue(MetadataKeys.Transform.Scale, out object? scaleObject))
-        {
-            return false;
-        }
-
-        if (scaleObject is not JsonElement scaleElement)
-        {
-            return false;
-        }
-
-        if (scaleElement.ValueKind != JsonValueKind.Array)
-        {
-            return false;
-        }
-
-        if (scaleElement.GetArrayLength() != 3)
-        {
-            return false;
-        }
-
-        scale = new Vector3(
-            scaleElement[0].GetSingle(),
-            scaleElement[1].GetSingle(),
-            scaleElement[2].GetSingle()
-        );
-        return true;
     }
     
     private static bool IsScaleApplied(Vector3 scale) => scale == Vector3.One;

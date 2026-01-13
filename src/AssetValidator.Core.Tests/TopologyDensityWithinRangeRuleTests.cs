@@ -1,4 +1,5 @@
-﻿using AssetValidator.Core.Domain;
+﻿using System.Text.Json;
+using AssetValidator.Core.Domain;
 using AssetValidator.Core.Rules;
 using FluentAssertions;
 
@@ -52,10 +53,10 @@ public class TopologyDensityWithinRangeRuleTests
         Asset asset = new()
         {
             Type = AssetType.Mesh,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Mesh.VertexCount, 1000 },
-                { MetadataKeys.Mesh.TriangleCount, 800 }
+                { MetadataKeys.Mesh.VertexCount, JsonSerializer.SerializeToElement(1000) },
+                { MetadataKeys.Mesh.TriangleCount, JsonSerializer.SerializeToElement(800) }
             }
         };
 
@@ -78,10 +79,10 @@ public class TopologyDensityWithinRangeRuleTests
         Asset asset = new()
         {
             Type = AssetType.Mesh,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Mesh.VertexCount, 100 },
-                { MetadataKeys.Mesh.TriangleCount, 500 }
+                { MetadataKeys.Mesh.VertexCount, JsonSerializer.SerializeToElement(100) },
+                { MetadataKeys.Mesh.TriangleCount, JsonSerializer.SerializeToElement(500) }
             }
         };
 
@@ -105,10 +106,10 @@ public class TopologyDensityWithinRangeRuleTests
         Asset asset = new()
         {
             Type = AssetType.Mesh,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Mesh.VertexCount, 3000 },
-                { MetadataKeys.Mesh.TriangleCount, 1000 }
+                { MetadataKeys.Mesh.VertexCount, JsonSerializer.SerializeToElement(3000) },
+                { MetadataKeys.Mesh.TriangleCount, JsonSerializer.SerializeToElement(1000) }
             }
         };
 
@@ -131,10 +132,10 @@ public class TopologyDensityWithinRangeRuleTests
         Asset asset = new()
         {
             Type = AssetType.Mesh,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Mesh.VertexCount, 100 },
-                { MetadataKeys.Mesh.TriangleCount, 0 }
+                { MetadataKeys.Mesh.VertexCount, JsonSerializer.SerializeToElement(100) },
+                { MetadataKeys.Mesh.TriangleCount, JsonSerializer.SerializeToElement(0) }
             }
         };
 
@@ -156,10 +157,10 @@ public class TopologyDensityWithinRangeRuleTests
         Asset asset = new()
         {
             Type = AssetType.Mesh,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Mesh.VertexCount, 0 },
-                { MetadataKeys.Mesh.TriangleCount, 100 }
+                { MetadataKeys.Mesh.VertexCount, JsonSerializer.SerializeToElement(0) },
+                { MetadataKeys.Mesh.TriangleCount, JsonSerializer.SerializeToElement(100) }
             }
         };
 
@@ -181,7 +182,7 @@ public class TopologyDensityWithinRangeRuleTests
         Asset asset = new()
         {
             Type = AssetType.Mesh,
-            Metadata = new Dictionary<string, object>()
+            Metadata = new Dictionary<string, JsonElement>()
         };
 
         rule.AppliesTo(asset).Should().BeTrue();
@@ -202,10 +203,10 @@ public class TopologyDensityWithinRangeRuleTests
         Asset asset = new()
         {
             Type = AssetType.Mesh,
-            Metadata = new Dictionary<string, object>
+            Metadata = new Dictionary<string, JsonElement>
             {
-                { MetadataKeys.Mesh.VertexCount, "1000" },
-                { MetadataKeys.Mesh.TriangleCount, 500 }
+                { MetadataKeys.Mesh.VertexCount, JsonSerializer.SerializeToElement("1000") },
+                { MetadataKeys.Mesh.TriangleCount, JsonSerializer.SerializeToElement(500) }
             }
         };
 
