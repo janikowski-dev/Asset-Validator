@@ -33,10 +33,34 @@ The validator operates purely on serialized metadata and has no dependency on an
 
 ## Validation Results (UI)
 
-![Asset Validator – Validation Results](assets/validator-ui.png)
+![Asset Validator UI – Validation Results](assets/validator-ui.png)
 
 The desktop UI presents validation results in a tabular form, grouped by severity.
 This allows quick inspection of asset issues without digging through logs or raw JSON output.
+
+---
+
+## CLI Usage
+
+![Asset Validator CLI – Validation Results](assets/validator-cli.png)
+
+Run validation:
+```
+AssetValidator.Cli --input examples/assets_valid.json
+```
+
+Output results as JSON (for CI or tooling):
+```
+AssetValidator.Cli --input examples/assets_valid.json --json-results
+```
+
+### Exit Codes
+
+| Code | Meaning |
+| ---- | ------- |
+| 0 | Validation passed |
+| 1 | Validation errors found |
+| 2 | Tool failure (IO / parsing error) |
 
 ---
 
@@ -63,28 +87,6 @@ Releases are intended for:
 
 - **AssetValidator.Core.Tests**  
   Unit tests for rules and core behavior.
-
----
-
-## CLI Usage
-
-Run validation:
-```
-AssetValidator.Cli --input examples/assets_valid.json
-```
-
-Output results as JSON (for CI or tooling):
-```
-AssetValidator.Cli --input examples/assets_valid.json --json-results
-```
-
-### Exit Codes
-
-| Code | Meaning |
-| ---- | ------- |
-| 0 | Validation passed |
-| 1 | Validation errors found |
-| 2 | Tool failure (IO / parsing error) |
 
 ---
 
